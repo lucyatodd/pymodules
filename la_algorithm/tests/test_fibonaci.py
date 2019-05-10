@@ -4,7 +4,7 @@ Test for Fibonacci implementations logic.
 
 import unittest
 
-from src import sequence
+from fibonaci.goldenratio import sequence
 
 
 class TestFibonacciImplementations(unittest.TestCase):
