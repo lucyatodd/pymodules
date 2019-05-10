@@ -3,8 +3,8 @@ Collection of fibonacci methods and functions
 """
 from . import fibonaci
 
-__version__ = '1.0.3'
-__author__ = 'Omkar Pathak'
+__version__ = '1.0.0'
+__author__ = 'Lucy Todd'
 
 # List maintainers here
 __maintainers__ = [
