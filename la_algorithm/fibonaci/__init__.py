@@ -6,4 +6,4 @@ from . import goldenratio
 
 __all__ = [
     'goldenratio'
-]Í
+]
