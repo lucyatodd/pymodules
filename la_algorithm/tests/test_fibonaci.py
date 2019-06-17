@@ -3,8 +3,13 @@ Test for Fibonacci implementations logic.
 """
 
 import unittest
+import logging
+import logging.config
 
 from fibonaci.goldenratio import sequence
+
+logging.config.fileConfig("logging.properties")
+logger = logging.getLogger()
 
 
 class TestFibonacciImplementations(unittest.TestCase):
@@ -16,6 +21,7 @@ class TestFibonacciImplementations(unittest.TestCase):
       """
       Verify that all implementations have same result.
       """
+      logger.info("Test fib")
       result = sequence(6)
       self.assertEqual([0, 1, 1, 2, 3, 5, 8], result)
 
