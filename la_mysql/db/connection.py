@@ -17,3 +17,9 @@ def open():
 
    cnx = connection.MySQLConnection(user=user, password=password, host=host, port=port, database=database)
    return cnx
+
+def openWith(user, password, host, port, database):
+   details = f"{user} {password} {host} {port} {database}"
+   print("details ", details)
+   cnx = connection.MySQLConnection(user=user, password=password, host=host, port=port, database=database)
+   return cnx
