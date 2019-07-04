@@ -2,6 +2,9 @@
 	"folders": [
 		{
 			"path": "la_algorithm"
+		},
+		{
+			"path": "la_mysql"
 		}
 	]
 }
