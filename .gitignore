@@ -102,3 +102,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+.1
+la_mysql/.vscode/settings.json.1
+la_algorithm/.vscode/settings.json.1
+la_mysql/.vscode/settings.json
+la_algorithm/.vscode/settings.json
