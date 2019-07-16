@@ -6,7 +6,7 @@ import unittest
 import logging
 import logging.config
 import configparser
-from db import connection
+from db import connection, housekeeping
 
 logging.config.fileConfig("logging.properties")
 logger = logging.getLogger()
@@ -15,12 +15,13 @@ class TestMySqlConnection(unittest.TestCase):
     """
     Tests for MySQL connectivity.
     """
+    v = 3
 
     def test_open(self):
       """
       Verify twe can open a database connection with a properties file.
       """
-      self.cnx = connection.open();
+      self.cnx = connection.open()
       logger.info("Test MySQL Connection")
       self.assertIsNotNone(self.cnx)
       self.assertTrue(1==1)
@@ -40,31 +41,31 @@ class TestMySqlConnection(unittest.TestCase):
       port = config.get('DatabaseSection','mysql.port')
       database = config.get('DatabaseSection','mysql.database')
 
-      self.cnx = connection.openWith(user=user, password=password, host=host, port=port, database=database);
+      self.cnx = connection.openWith(user=user, password=password, host=host, port=port, database=database)
       logger.info("Test MySQL Connection")
       self.assertIsNotNone(self.cnx)
       self.assertTrue(1==1)
       print("Connected ....")
       self.cnx.close()
+
+    def test_truncate(self):
+      housekeeping.truncate(connection.open(), "explore.topics")
  
-    def test_insert(self):  
-      self.cnx = connection.open();
-      mycursor = self.cnx.cursor()
-      self.insert(mycursor, 70)
-      print("Insert exectued")
-      self.cnx.close()
+    def test_insert_by_parameters(self):
+      cnx = connection.open()
+      housekeeping.truncate(cnx, "explore.topics")
+      insertSQL = self.makesql(1, "physics", "science and that")
+      housekeeping.insert(cnx, insertSQL)
+      insertSQL = self.makesql(2, "biology", "animals and that")
+      housekeeping.insert(cnx, insertSQL)
+      insertSQL = self.makesql(3, "maths", "hilter and that")
+      housekeeping.insert(cnx, insertSQL)
+      cnx.close()
 
     def makesql(self, id, subject, desc):
       sql = f"insert into topics (ID, subject, description) values ({id}, '{subject}', '{desc}')"
       print("SQL:", sql)
       return sql
-
-    # execute the 3 insert commands with different parameters
-    def insert(self, cursor, id):
-      cursor.execute(self.makesql(id+1, "physics", "science and that"))
-      cursor.execute(self.makesql(id+2, "biology", "animals and that"))
-      cursor.execute(self.makesql(id+3, "german", "hilter and that"))
-      cursor.execute("commit")
 
 if __name__ == '__main__':
     unittest.main()
